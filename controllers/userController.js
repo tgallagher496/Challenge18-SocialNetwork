@@ -3,6 +3,7 @@ const User = require('../models/User');
 module.exports = {
   getUsers(req, res) {
     User.find()
+    //.populate('friends')
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
@@ -24,7 +25,7 @@ module.exports = {
   },
   // remove a user
   deleteUser(req,res){
-    User.findOneAndUpdate(
+    User.findOneAndDelete(
       { _id: req.params.userId })
       .then((user) =>
         !user
@@ -38,10 +39,11 @@ module.exports = {
   },
   updateUser(req, res) {
     User.findOneAndUpdate(
-      { _id: req.params.user },
+      { _id: req.params.userId },
       { $set: req.body },
       { runValidators: true, new: true }
     )
+  
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'No student with this Id is found' })
@@ -50,7 +52,7 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   addFriend(req, res) {
-    User.create(req.body)
+    User.findOneAndUpdate({_id:req.params.userId},{$addToSet:{friends:req.params.friendId}},{new:true})
       .then((friends) => res.json(friends))
       .catch((err) => {
         console.log(err);

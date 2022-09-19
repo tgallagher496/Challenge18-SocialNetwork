@@ -3,34 +3,34 @@ const {
   getThoughts,
   getSingleThought,
   createThought,
-  updateThought,
+  updateThoughts,
   deleteThought,
-  addReaction,
-  deleteReaction,
-} = require('../../controllers/userController');
+  //addReaction,
+  //deleteReaction,
+} = require('../../controllers/thoughtController');
 
 // /api/thoughts
-router.route('/thoughts').get(getThoughts);
+router.route('/').get(getThoughts);
 
 // /api/thoughts
-router.route('/thoughts/:thoughtId').get(getSingleThought);
+router.route('/:thoughtId').get(getSingleThought);
 
 // /api/thoughts/:userId Post
-router.route('/thoughts/:thoughtId').post(createThought);
+router.route('/:thoughtId').post(createThought);
 
 //  /api/thoughts/:userId Delete
-router.route('/thoughts/:thoughtId').delete(deleteThought);
+router.route('/:thoughtId').delete(deleteThought);
 
 // /api/user/:userID/friends/:friendId
-router.route('/thoughts/:thoughtId').put(updateThought);
+router.route('/:thoughtId').put(updateThoughts);
 
 // /api/user/:userID/friends/:friendId
-router.route('/thoughts/:thoughtId').delete(deleteThought);
+router.route('/:thoughtId').delete(deleteThought);
 
 //  add reaction
-router.route('/thoughts/:thoughtID/reations').put(addReaction);
+//router.route('/:thoughtID/reations').put(addReaction);
 
 // delete reaction
-router.route('/thoughts/:thoughtID/reations').delete(deleteReaction);
+//router.route('/:thoughtID/reations').delete(deleteReaction);
 
 module.exports = router;
