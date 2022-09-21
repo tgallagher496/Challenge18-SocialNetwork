@@ -8,21 +8,20 @@ module.exports = {
   },
   getSingleThought:(req, res) =>{
     Thought.findOne({ _id: req.params.thoughtId })
-      .select('-__v')
-      .then((thoughts) =>
-        !thoughts
+      .then((thought) =>
+        !thought
           ? res.status(404).json({ message: 'No thoughts with that ID' })
-          : res.json(user)
+          : res.json(thought)
       )
       .catch((err) => res.status(500).json(err));
   },
-  // create a new user
+  // create a new thought
   createThought:(req, res)=> {
     Thought.create(req.body)
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(500).json(err));
   },
-  // remove a user
+  // remove a thought
   deleteThought:(req,res)=>{
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId })
