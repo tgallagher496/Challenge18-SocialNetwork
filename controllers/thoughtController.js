@@ -66,6 +66,19 @@ module.exports = {
       .then(() => res.json({ message: 'Thought deleted!' }))
       .catch((err) => res.status(500).json(err));
   },
+  addReaction:(req, res) =>{
+    Thought.findOneAndUpdate({_id:req.params.thoughtId},{$addToSet:{reactions:req.body}},{new:true})
+      .then((reaction) => res.json(reaction))
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
+  },
+  deleteReaction:(req, res)=> {
+    Thought.findOneAndUpdate({ _id: req.params.thoughtId },{$pull:{reactions:req.params.reactionId}},{new:true})
+    .then(() => res.json({ message: 'Reaction deleted!' }))
+    .catch((err) => res.status(500).json(err));
+  },
 };
 
 
