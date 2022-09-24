@@ -69,10 +69,10 @@ module.exports = {
   addReaction:(req, res) =>{
     Thought.findOneAndUpdate({_id:req.params.thoughtId},{$addToSet:{reactions:req.body}},{new:true})
       .then((reaction) => res.json(reaction))
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
+      //.catch((err) => {
+      //  console.log(err);
+      //  return res.status(500).json(err);
+      //});
   },
   deleteReaction:(req, res)=> {
     Thought.findOneAndUpdate({ _id: req.params.thoughtId },{$pull:{reactions:req.params.reactionId}},{new:true})
